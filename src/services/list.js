@@ -42,8 +42,21 @@ function updateList(list) {
   });
 }
 
+function deleteList(id) {
+  return new Promise((resolve, reject) => {
+    api
+      .delete(`${BASE_ENDPOINT}/${id}`)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
 export default {
   fetchLists,
   createList,
   updateList,
+  deleteList,
 };

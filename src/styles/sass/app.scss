@@ -17,3 +17,41 @@ body,
   height: 100%;
   font-family: "Roboto", sans-serif;
 }
+
+.menu-button {
+  border-radius: 50%;
+  border: 0;
+
+  padding: 2px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.menu-button:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transition: 0.2s ease;
+}
+
+.b-popover {
+  padding: 0;
+  margin: 0;
+}
+
+.menu {
+  list-style-type: none;
+  width: 100px;
+
+  li {
+    cursor: pointer;
+  }
+
+  li:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transition: 0.2s ease;
+  }
+}

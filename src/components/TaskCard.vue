@@ -9,7 +9,7 @@
       "
     >
       <span>{{ task.title }}</span>
-      <button class="menu-button" :id="`${task.id}`" variant="primary">
+      <button class="menu-button" :id="`task-${task.id}`">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
@@ -24,7 +24,7 @@
         </svg>
       </button>
 
-      <b-popover :target="`${task.id}`" triggers="focus">
+      <b-popover :target="`task-${task.id}`" triggers="focus">
         <ul class="menu">
           <li class="p-2 cursor-pointer">Editar</li>
           <li
@@ -57,42 +57,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.menu-button {
-  border-radius: 50%;
-  border: 0;
-
-  padding: 2px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-  background-color: transparent;
-}
-
-.menu-button:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transition: 0.2s ease;
-}
-
-.b-popover {
-  padding: 0;
-  margin: 0;
-}
-
-.menu {
-  list-style-type: none;
-  width: 100px;
-
-  li {
-    cursor: pointer;
-  }
-
-  li:hover {
-    background: rgba(0, 0, 0, 0.1);
-    transition: 0.2s ease;
-  }
-}
-</style>

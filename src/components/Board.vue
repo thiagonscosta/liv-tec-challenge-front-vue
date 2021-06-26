@@ -12,18 +12,33 @@
           "
         >
           <h3>{{ list.title }}</h3>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-three-dots-vertical"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-            />
-          </svg>
+          <button class="menu-button" :id="`list-${list.id}`">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-three-dots-vertical"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+              />
+            </svg>
+          </button>
+
+          <b-popover :target="`list-${list.id}`" triggers="focus">
+            <ul class="menu">
+              <li class="p-2 cursor-pointer">Editar</li>
+              <li
+                class="p-2 cursor-pointer"
+                role="button"
+                @click="deleteList(list.id)"
+              >
+                Deletar
+              </li>
+            </ul>
+          </b-popover>
         </div>
         <draggable
           :list="list.tasks"
@@ -73,7 +88,7 @@
 
 <script>
 import draggable from "vuedraggable";
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 import TaskCard from "./TaskCard.vue";
 import TaskForm from "./TaskForm.vue";
 import ListForm from "./ListForm.vue";
@@ -93,7 +108,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("boardModule", ["lists"]),
+    ...mapGetters("boardModule", { lists: "allLists" }),
   },
   created() {
     this.loadLists();
@@ -116,7 +131,6 @@ export default {
       this.$store.dispatch("boardModule/deleteTask", id);
     },
     saveList(data) {
-      console.log(data);
       this.$store.dispatch("boardModule/createList", data);
     },
     moveTask(e) {
@@ -130,6 +144,9 @@ export default {
 
       this.$store.dispatch("boardModule/moveTask", { id, list_id });
     },
+    deleteList(id) {
+      this.$store.dispatch("boardModule/deleteList", id);
+    },
   },
 };
 </script>
@@ -139,8 +156,9 @@ export default {
   display: flex;
   flex-direction: column;
   width: 290px;
-  height: inherit;
+
   margin: 6px;
+  border-radius: 0;
 
   button {
     display: flex;

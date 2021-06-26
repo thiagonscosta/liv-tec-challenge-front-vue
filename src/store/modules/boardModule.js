@@ -1,11 +1,16 @@
+import { keyBy, orderBy } from "lodash";
 import listService from "../../services/list";
 import taskService from "../../services/task";
 
 const state = () => ({
   lists: [],
+  listsLength: null,
 });
 
-const getters = {};
+const getters = {
+  allById: (s) => keyBy(s.lists, "id"),
+  allLists: (s) => orderBy(s.lists, ["order"], ["asc"]),
+};
 
 const actions = {
   getLists({ commit }) {
@@ -18,6 +23,9 @@ const actions = {
     listService.createList(data).then(() => {
       dispatch("getLists");
     });
+  },
+  deleteList({ dispatch }, id) {
+    listService.deleteList(id).then(() => dispatch("getLists"));
   },
   createTask({ dispatch }, data) {
     taskService.createTask(data).then(() => {
@@ -35,6 +43,7 @@ const actions = {
 const mutations = {
   setLists(s, lists) {
     s.lists = lists;
+    s.listsLength = s.lists.length;
   },
 };
 

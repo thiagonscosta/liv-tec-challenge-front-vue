@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "ListForm",
   data() {
@@ -25,12 +27,16 @@ export default {
       title: null,
     };
   },
+  computed: {
+    ...mapState("boardModule", ["listsLength"]),
+  },
   methods: {
     save() {
       if (this.title) {
         const title = this.title;
+        const order = this.listsLength + 1;
 
-        this.$emit("save", { title });
+        this.$emit("save", { title, order });
         this.clear();
       }
     },
