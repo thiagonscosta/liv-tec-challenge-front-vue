@@ -1,7 +1,12 @@
 <template>
   <form @submit.prevent="save">
-    <input type="text" class="form-control" v-model="title" />
-    <div class="d-flex flex-directions-row justify-content-between my-3">
+    <input
+      type="text"
+      class="form-control"
+      v-model="title"
+      placeholder="Insira o título da lista..."
+    />
+    <div class="d-flex flex-directions-row justify-content-between mt-2">
       <button type="submit" class="btn btn-success btn-sm" :disabled="!title">
         Adicionar Lista
       </button>

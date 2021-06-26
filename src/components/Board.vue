@@ -11,18 +11,18 @@
             align-items-center
           "
         >
-          <h3>{{ list.title }}</h3>
+          <h4 class="text-muted">{{ list.title }}</h4>
           <button class="menu-button" :id="`list-${list.id}`">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
               height="16"
               fill="currentColor"
-              class="bi bi-three-dots-vertical"
+              class="bi bi-three-dots"
               viewBox="0 0 16 16"
             >
               <path
-                d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"
               />
             </svg>
           </button>
@@ -55,7 +55,10 @@
             :id="task.id"
           />
         </draggable>
-        <button class="btn btn-primary mt-2" @click="openTaskForm(list.id)">
+        <button
+          class="btn btn-primary btn-sm mt-2"
+          @click="openTaskForm(list.id, list.title)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -80,6 +83,7 @@
     <TaskForm
       :show="showTaskForm"
       :list_id="list_id"
+      :list_title="list_title"
       @close="closeTaskForm"
       @save="saveTask"
     />
@@ -105,6 +109,8 @@ export default {
     return {
       showTaskForm: false,
       list_id: null,
+      hasError: false,
+      list_title: null,
     };
   },
   computed: {
@@ -117,9 +123,10 @@ export default {
     loadLists() {
       this.$store.dispatch("boardModule/getLists");
     },
-    openTaskForm(id) {
+    openTaskForm(id, title) {
       this.showTaskForm = true;
       this.list_id = id;
+      this.list_title = title;
     },
     closeTaskForm() {
       this.showTaskForm = false;

@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-2 my-2 shadow-sm border-0">
+  <div class="task-card card p-2 my-2 shadow-sm border-0">
     <div
       class="
         d-flex
@@ -8,7 +8,7 @@
         align-items-center
       "
     >
-      <span>{{ task.title }}</span>
+      <span class="text-muted">{{ task.title }}</span>
       <button class="menu-button" :id="`task-${task.id}`">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -57,3 +57,19 @@ export default {
 };
 </script>
 
+<style lang="scss" scoped>
+.task-card {
+  cursor: grab;
+
+  button {
+    opacity: 0;
+  }
+}
+
+.task-card:hover {
+  button {
+    opacity: 1;
+    transition: 0.2s ease;
+  }
+}
+</style>

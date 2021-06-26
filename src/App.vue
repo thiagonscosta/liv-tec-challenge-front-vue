@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <AppBar />
-    <Board />
+    <b-overlay id="overlay" :show="overlay" rounded="sm">
+      <AppBar />
+      <Board />
+    </b-overlay>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Board from "./components/Board.vue";
 import AppBar from "./components/AppBar.vue";
 
@@ -15,17 +18,8 @@ export default {
     Board,
     AppBar,
   },
+  computed: {
+    ...mapState("boardModule", ["overlay"]),
+  },
 };
 </script>
-
-<style lang="scss">
-// #app {
-//   font-family: Avenir, Helvetica, Arial, sans-serif;
-//   -webkit-font-smoothing: antialiased;
-//   -moz-osx-font-smoothing: grayscale;
-//   text-align: center;
-//   color: #2c3e50;
-//   margin-top: 60px;
-// }
-//
-</style>

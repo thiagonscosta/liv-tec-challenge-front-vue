@@ -3,7 +3,6 @@ import { api } from "./api";
 const BASE_ENDPOINT = "/task";
 
 function createTask(list) {
-  console.log(list);
   return new Promise((resolve, reject) => {
     api
       .post(`${BASE_ENDPOINT}`, list)
